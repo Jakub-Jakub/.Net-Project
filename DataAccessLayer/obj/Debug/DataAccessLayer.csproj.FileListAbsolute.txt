@@ -1,0 +1,9 @@
+E:\SCHOOL WORK\.NetTwo\Disclone\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+E:\SCHOOL WORK\.NetTwo\Disclone\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+E:\SCHOOL WORK\.NetTwo\Disclone\DataAccessLayer\bin\Debug\DataObjects.dll
+E:\SCHOOL WORK\.NetTwo\Disclone\DataAccessLayer\bin\Debug\DataObjects.pdb
+E:\SCHOOL WORK\.NetTwo\Disclone\DataAccessLayer\obj\Debug\DataAccessLayer.csprojAssemblyReference.cache
+E:\SCHOOL WORK\.NetTwo\Disclone\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+E:\SCHOOL WORK\.NetTwo\Disclone\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CopyComplete
+E:\SCHOOL WORK\.NetTwo\Disclone\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+E:\SCHOOL WORK\.NetTwo\Disclone\DataAccessLayer\obj\Debug\DataAccessLayer.pdb

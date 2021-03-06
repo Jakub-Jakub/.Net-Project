@@ -1,0 +1,6 @@
+E:\SCHOOL WORK\.NetTwo\Disclone\DataObjects\bin\Debug\DataObjects.dll
+E:\SCHOOL WORK\.NetTwo\Disclone\DataObjects\bin\Debug\DataObjects.pdb
+E:\SCHOOL WORK\.NetTwo\Disclone\DataObjects\obj\Debug\DataObjects.csproj.CoreCompileInputs.cache
+E:\SCHOOL WORK\.NetTwo\Disclone\DataObjects\obj\Debug\DataObjects.dll
+E:\SCHOOL WORK\.NetTwo\Disclone\DataObjects\obj\Debug\DataObjects.pdb
+E:\SCHOOL WORK\.NetTwo\Disclone\DataObjects\obj\Debug\DataObjects.csprojAssemblyReference.cache

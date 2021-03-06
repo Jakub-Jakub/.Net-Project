@@ -1,0 +1,49 @@
+Not a complete list...
+
+Things you can do now:
+	-Account features:
+		-Create new account
+		-Change account image
+		-Change passwords
+		-Login / Logout
+	-Servers:
+		-Create new Servers
+		-Owner can Edit(Name, Tag, Image)
+		-Join servers by tag
+		-Display list of chatrooms
+		-Display list of server users
+	-Chatrooms:
+		-Create new chatrooms with create chatroom button
+		-Display messages for selected chatroom
+	-Messages:
+		-Create/send messages
+
+Things to do:
+	- Implement MVC framework:
+		- Get rid of BadPractice Class
+	- Account features:
+		- Edit Username
+		- Edit email
+	-Friends:
+		- Make Friends table(s) in db
+		- Let users add friends by username
+		- let users add friends by right-click menu
+		- remove friends
+	-Servers:
+		- Implement moderator powers
+		- Delete server
+		- Invite users to server
+	-Chatrooms:
+		-Edit chatroom
+		-Delete chatroom
+	-Messages:
+		-Edit
+		-Enable Direct Messages
+	- Validation:
+		- Strong passwords
+		- Real emails
+	- Report Features:
+		- Report Messages
+		- Report Images
+		- Report Usernames
+	
