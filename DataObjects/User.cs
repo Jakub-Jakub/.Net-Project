@@ -15,6 +15,7 @@ namespace DataObjects
         public string UserName { get; set; }
         public bool Active { get; set; }
         public byte[] UserImage { get; set; }
+        public bool isAdmin { get; set; }
 
     }
 

@@ -47,5 +47,22 @@ namespace LogicLayer
             }
             return chatrooms;
         }
+
+        public bool RemoveChatroomById(int chatroomId)
+        {
+            bool result = false;
+
+            try
+            {
+                result = 0 != _chatroomAccessor.DeleteChatroomByID(chatroomId);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return result;
+        }
     }
 }

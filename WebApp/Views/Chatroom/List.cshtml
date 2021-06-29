@@ -1,0 +1,9 @@
+﻿@model IEnumerable<DataObjects.Chatroom>
+
+
+    @foreach (var item in Model)
+    {
+        
+            <input type="button" class="btn chatroomItem" value="@item.Name" onclick="getMessages(@item.ChatroomID)"/>
+
+    }

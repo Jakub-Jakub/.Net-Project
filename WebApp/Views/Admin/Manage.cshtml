@@ -1,0 +1,49 @@
+﻿@model IEnumerable<DataObjects.UserVM>
+
+@{
+    ViewBag.Title = "Manage";
+}
+
+<h2>Manage</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isAdmin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isModerator)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isAdmin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isModerator)
+        </td>
+        <td>
+            @Html.ActionLink("Activate/Deactivate", "ChangeIsAdmin", new { id=item.UserID, isAdmin=item.isAdmin })
+        </td>
+    </tr>
+}
+
+</table>

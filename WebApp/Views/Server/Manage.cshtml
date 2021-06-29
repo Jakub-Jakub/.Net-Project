@@ -1,0 +1,47 @@
+﻿@model IEnumerable<DataObjects.ServerVM>
+
+@{
+    ViewBag.Title = "Manage";
+}
+<div class="pad">
+    <h2>Manage</h2>
+
+    <p>
+        @Html.ActionLink("Create New Server", "Create")&nbsp;|&nbsp;@Html.ActionLink("Join Server With Tag", "JoinServer")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnerUserName)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tag)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OwnerUserName)
+                </td>
+                <td>
+                    @Html.ActionLink("Manage Chatrooms", "Manage", "Chatroom", new { id = item.ServerID }, new { }) |
+                    @Html.ActionLink("Manage Users", "Manage","DiscloneUser", new { id = item.ServerID }, new { }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ServerID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

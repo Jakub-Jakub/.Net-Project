@@ -23,7 +23,7 @@ CREATE TABLE [dbo].[User_Account](
 	[UserID]		[int]		IDENTITY(1000000, 1)	NOT NULL,
 	[Email]			[nvarchar]	(100)					NOT NULL,
 	[UserName]		[nvarchar]	(20)					NOT NULL,
-	[PasswordHash]	[nvarchar]	(100)					NOT NULL 	DEFAULT '9C9064C59F1FFA2E174EE754D2979BE80DD30DB552EC03E7E327E9B1A4BD594E',
+	[PasswordHash]	[nvarchar]	(100)					NOT NULL 	DEFAULT 'b03ddf3ca2e714a6548e7495e2a03f5e824eaac9837cd7f159c67b90fb4b7342',
 	[Active]		[bit]								NOT NULL	DEFAULT 1,
 	[UserImage]		[varbinary](max)						NULL,
 	[isAdmin]		[bit]								NOT NULL 	DEFAULT 0,
@@ -175,9 +175,9 @@ CREATE PROCEDURE [dbo].[sp_select_user_by_email]
 	)
 AS
 	BEGIN
-		SELECT UserID, UserName, Active, UserImage
+		SELECT UserID, UserName, Active, isAdmin, UserImage
 		FROM User_Account
-		WHERE Email = @Email
+		WHERE Email = @Email		
 	END
 GO
 
@@ -199,6 +199,46 @@ AS
 	END
 GO
 
+print'' print '*** creating sp_select_all_users***'
+GO
+CREATE PROCEDURE [dbo].[sp_select_all_users]
+AS
+	BEGIN
+		SELECT UserID, UserName, Active, isAdmin, UserImage
+		FROM User_Account		
+	END
+GO
+
+
+print '' print '*** creating sp_set_user_account_active***'
+GO
+CREATE PROCEDURE [dbo].[sp_set_user_account_active_by_id]
+	(
+		@UserID [int],
+		@Active [bit]
+	)
+AS
+	BEGIN
+		UPDATE User_Account
+		SET Active = @Active
+		WHERE UserID = @UserID
+	END
+GO
+
+print '' print '*** creating sp_set_user_account_active***'
+GO
+CREATE PROCEDURE [dbo].[sp_set_user_account_isAdmin_by_id]
+	(
+		@UserID [int],
+		@isAdmin [bit]
+	)
+AS
+	BEGIN
+		UPDATE User_Account
+		SET isAdmin = @isAdmin
+		WHERE UserID = @UserID
+	END
+GO
 
 print '' print '*** creating sp_update_userimage ***'
 GO
@@ -233,6 +273,40 @@ AS
 			(@UserID, @ServerID, @isModerator)
 	END
 GO
+
+print '' print '*** creating sp_remove_user_from_server_user_list'
+GO
+CREATE PROCEDURE [dbo].[sp_remove_user_from_server_user_list]
+(
+	@UserID [int],
+	@ServerID [int]
+)
+AS
+	BEGIN
+		DELETE FROM server_user_list
+		WHERE UserID = @UserID
+			AND ServerID = @ServerID
+			AND isModerator = 0;
+	END
+GO
+
+
+print '' print '*** creating sp_delete_chatroom_by_id'
+GO
+CREATE PROCEDURE [dbo].[sp_delete_chatroom_by_id]
+(
+	@ChatroomID [int]
+)
+AS
+	BEGIN
+		DELETE FROM Chatroom_Message_List
+		WHERE ChatroomID = @ChatroomID
+		;
+		DELETE FROM Chatroom
+		WHERE ChatroomID = @ChatroomID
+	END
+GO
+
 
 print '' print '*** creaing sp_add_user_to_server_user_list_by_tag'
 GO
@@ -355,7 +429,7 @@ CREATE PROCEDURE sp_select_users_by_serverid
 )
 AS
 	BEGIN
-		SELECT User_Account.UserID, User_Account.UserName, Server_User_List.isModerator, User_Account.UserImage 
+		SELECT User_Account.UserID, User_Account.UserName, Server_User_List.isModerator, User_Account.isAdmin, User_Account.UserImage 
 		FROM User_Account
 		JOIN Server_User_List			
 			ON Server_User_List.UserID = User_Account.UserID
@@ -546,22 +620,30 @@ DECLARE @UserID_Three [int]
 EXEC @UserID_Zero = sp_insert_new_user_account 
 	@Email = 'jakub@domain.com', 
 	@UserName = 'Kuba', 
-	@PasswordHash = '9C9064C59F1FFA2E174EE754D2979BE80DD30DB552EC03E7E327E9B1A4BD594E'
+	@PasswordHash = 'b03ddf3ca2e714a6548e7495e2a03f5e824eaac9837cd7f159c67b90fb4b7342'
 ;
+
+UPDATE User_Account
+SET isAdmin = 1
+WHERE UserName = 'Kuba'
+;
+	
+
+
 EXEC @UserID_One = sp_insert_new_user_account 
 	@Email = 'greg@domain.com', 
 	@UserName = 'Greg_The_Red', 
-	@PasswordHash = '9C9064C59F1FFA2E174EE754D2979BE80DD30DB552EC03E7E327E9B1A4BD594E'
+	@PasswordHash = 'b03ddf3ca2e714a6548e7495e2a03f5e824eaac9837cd7f159c67b90fb4b7342'
 ;
 EXEC @UserID_Two = sp_insert_new_user_account 
 	@Email = 'frank@domain.com', 
 	@UserName = 'Franky', 
-	@PasswordHash = '9C9064C59F1FFA2E174EE754D2979BE80DD30DB552EC03E7E327E9B1A4BD594E'
+	@PasswordHash = 'b03ddf3ca2e714a6548e7495e2a03f5e824eaac9837cd7f159c67b90fb4b7342'
 ;
 EXEC @UserID_Three = sp_insert_new_user_account 
 	@Email = 'sarah@domain.com', 
 	@UserName = 'Sneaky_Sarah', 
-	@PasswordHash = '9C9064C59F1FFA2E174EE754D2979BE80DD30DB552EC03E7E327E9B1A4BD594E'
+	@PasswordHash = 'b03ddf3ca2e714a6548e7495e2a03f5e824eaac9837cd7f159c67b90fb4b7342'
 ;	
 print'' print'*** adding server with sp_insert_new_server ***'
 DECLARE @ServerID_Zero [int]
@@ -609,3 +691,4 @@ EXEC sp_insert_chatroom_message
 	@Message = "Me too! And I am making thi message super extra duper long so that we can test the apps wraping system, Oh boy I hope it works", 
 	@ChatroomID = @ChatroomID_Zero
 ;
+

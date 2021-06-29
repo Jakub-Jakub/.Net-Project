@@ -1,0 +1,139 @@
+﻿@using DataObjects
+@model IEnumerable<DataObjects.ServerVM>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+        var model = {
+            messages: ko.observableArray(),
+            editor: {
+                UserID: @Session["DiscloneUserId"],
+                UserName: "@Session["DiscloneUserName"]",
+                MessageText: ko.observable(""),
+                ChatroomId: 0
+            },
+            displaySummary: ko.observable(true)
+        };
+        function sendAjaxRequest(httpMethod, callback, url, reqData) {
+            $.ajax("/api/MessageWeb" + (url ? "/" + url : ""), {
+                type: httpMethod,
+                success: callback,
+                data: reqData
+            });
+        }
+        var getMessagesInterval;
+        function getMessages(id) {
+            sendAjaxRequest("GET", function (data) {
+                model.messages.removeAll();
+                for (var i = 0; i < data.length; i++) {
+                    model.messages.push(data[i]);
+                }
+            }, id);
+            model.editor.ChatroomId = id;
+            clearInterval(getMessagesInterval);
+            getMessagesInterval = setInterval(function () {
+                sendAjaxRequest("GET", function (data) {
+                    model.messages.removeAll();
+                    for (var i = 0; i < data.length; i++) {
+                        model.messages.push(data[i]);
+                    }
+                }, model.editor.ChatroomId);
+            }, 1000);
+        }
+        setInterval(function () { console.log("chatroomId= " + model.editor.ChatroomId + " UserID=" + model.editor.UserID);  }, 1000);
+        //function removeItem(item) {
+        //    sendAjaxRequest("DELETE", function () {
+        //        for (var i = 0; i < model.reservations().length; i++) {
+        //            if (model.reservations()[i].ReservationId == item.ReservationId) {
+        //                model.reservations.remove(model.reservations()[i]);
+        //                break;
+        //            }
+        //        }
+        //    }, item.ReservationId);
+        //}
+        function handleEditorClick() {
+            sendAjaxRequest(
+                "POST",
+                function (newItem) {
+                    
+                   // model.messages.push(newItem);
+                },
+                null,
+                {
+                    UserID: model.editor.UserID,
+                    MessageText: model.editor.MessageText,
+                    ChatroomId: model.editor.ChatroomId
+                }
+            );
+            model.editor.MessageText('');
+            updateScroll;
+        }
+        var scrolled = false;
+        function updateScroll() {
+            if (!scrolled) {
+                var element = document.getElementById("messagesList");
+                element.scrollTop = element.scrollHeight;
+            }
+        }
+        var scrollTimeout;
+        $("#messagesList").on('scroll', function () {
+            clearTimeout(scrollTimeout);
+            scrolled = true;
+            scrollTimeout = setTimeout(function () { scrolled = false }, 10000);
+        });
+        setInterval(updateScroll, 1000);
+
+        // Get the input field
+        var input = document.getElementById("inputMessageText");
+
+        // Execute a function when the user releases a key on the keyboard
+        input.addEventListener("keyup", function (event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                event.preventDefault();
+                // Trigger the button element with a click
+                handleEditorClick();
+            }
+        });
+
+
+        $(document).ready(function () {
+            //getAllItems();
+            ko.applyBindings(model);
+        });
+    </script>
+}
+    <div class="container webappBody">
+            <div class="col-sm-1" id="serverList">
+                    @Html.Action("List", "Server")
+            </div>
+            <div class="col-sm-2" id="chatroomList">
+                @{
+
+                    if (Session["SelectedServerId"] != null)
+                    {
+                        <div >
+                            @Html.Action("List", "Chatroom", new { serverId = Convert.ToInt32(Session["SelectedServerId"]) })
+                        </div>
+                    }
+                }
+            </div>
+            <div class="col-sm-8" id="messageContainer" data-bind="if: model.displaySummary">
+                    <div id="messagesList"  class="panel-body" data-bind="foreach: model.messages">
+                        <div class="message">
+                            <p class="MessageUserName" data-bind="text: UserName"></p>
+                            <p class="MessageText" data-bind="text: MessageText"></p>
+                        </div>
+                    </div>
+                    <div id="inputMessageTextContainer">                      
+                        <input type="text" id="inputMessageText"  class="form-control inputMessageText" data-bind="value: model.editor.MessageText"/>
+                    </div>
+            </div>
+            <div class="col-sm-1">
+                @*Code for chatroom users*@
+            </div>
+    </div>

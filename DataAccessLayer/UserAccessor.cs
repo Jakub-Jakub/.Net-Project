@@ -49,6 +49,7 @@ namespace DataAccessLayer
                         UserID = reader.GetInt32(0),
                         UserName = reader.GetString(1),
                         Active = reader.GetBoolean(2),
+                        isAdmin = reader.GetBoolean(3),
                         Email = email
                     };
                     try
@@ -302,7 +303,8 @@ namespace DataAccessLayer
                         {
                             UserID = reader.GetInt32(0),
                             UserName = reader.GetString(1),
-                            isModerator = reader.GetBoolean(2)
+                            isModerator = reader.GetBoolean(2),
+                            isAdmin = reader.GetBoolean(3),
                         };
                         try
                         {
@@ -326,6 +328,134 @@ namespace DataAccessLayer
                 conn.Close();
             }
             return users;
+        }
+
+        public int RemoveUserFromServerUserList(int userId, int serverId)
+        {
+            int result = 0;
+
+            // we need a connection object
+            var conn = DBConnection.GetDBConnection();
+
+            // next, we need a command object
+            var cmd = new SqlCommand("sp_remove_user_from_server_user_list", conn);
+
+            // set the command type
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            // set up the command parameters
+            cmd.Parameters.AddWithValue("@UserID", userId);
+            cmd.Parameters.AddWithValue("@ServerID", serverId);
+            try
+            {
+                conn.Open();
+                result = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return result;
+        }
+
+        public List<UserVM> SelectAllUsers()
+        {
+            List<UserVM> users = new List<UserVM>();
+
+            // get a connection
+            var conn = DBConnection.GetDBConnection();
+
+            // get a command
+            var cmd = new SqlCommand("sp_select_all_users", conn);
+
+            // command type
+            cmd.CommandType = CommandType.StoredProcedure;
+
+
+            // execute the command
+            try
+            {
+                // open the connection
+                conn.Open();
+
+                // execute the command
+                var reader = cmd.ExecuteReader();
+
+                // process the results
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+
+                        UserVM user = new UserVM()
+                        {
+                            UserID = reader.GetInt32(0),
+                            UserName = reader.GetString(1),
+                            Active = reader.GetBoolean(2),
+                            isAdmin = reader.GetBoolean(3),
+                        };
+                        try
+                        {
+                            user.UserImage = (byte[])reader["UserImage"];
+                        }
+                        catch (Exception)
+                        {
+
+                            user.UserImage = null;
+                        }
+                        users.Add(user);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return users;
+        }
+
+        public int UpdateUserIsAdmin(int userId, bool isAdmin)
+        {
+            int result = 0;
+
+            // we need a connection object
+            var conn = DBConnection.GetDBConnection();
+
+            // next, we need a command object
+            var cmd = new SqlCommand("sp_set_user_account_isAdmin_by_id", conn);
+
+            // set the command type
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            // set up the command parameters
+            cmd.Parameters.AddWithValue("@UserID", userId);
+            cmd.Parameters.Add("@isAdmin", SqlDbType.Bit);
+
+            cmd.Parameters["@isAdmin"].Value = isAdmin;
+            try
+            {
+                conn.Open();
+                result = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return result;
         }
     }
 }

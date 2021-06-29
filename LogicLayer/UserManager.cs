@@ -119,6 +119,70 @@ namespace LogicLayer
             return users;
         }
 
+        public UserVM GetUserByEmail(string email)
+        {
+            UserVM user = null;
+
+            // call the data access method
+            try
+            {
+                    // call the methods to create a user object and get roles
+                    user = userAccessor.SelectUserByEmail(email);
+
+                    if (user.UserImage != null)
+                    {
+                        ImageSource image;
+                        image = ImageHelper.ConvertByteArrayToImageSource(user.UserImage);
+                        user.UserImageSource = image;
+                    }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Login Failed.", ex);
+            }
+
+            return user;
+        }
+
+        public bool RemoveUserFromServerUserList(int userId, int serverId)
+        {
+            bool result = false;
+            try
+            {
+                result = 0 != userAccessor.RemoveUserFromServerUserList(userId, serverId);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return result;
+        }
+
+        public List<UserVM> SelectAllUsers()
+        {
+            List<UserVM> users = null;
+            try
+            {
+                users = userAccessor.SelectAllUsers();
+                foreach (var user in users)
+                {
+                    if (user.UserImage != null)
+                    {
+                        ImageSource image;
+                        image = ImageHelper.ConvertByteArrayToImageSource(user.UserImage);
+                        user.UserImageSource = image;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return users;
+        }
+
         public bool UpdatePassword(string email, string oldPassword, string newPassword)
         {
             bool result = false;
@@ -139,6 +203,21 @@ namespace LogicLayer
                 throw new ApplicationException("Password not changed.", ex);
             }
 
+            return result;
+        }
+
+        public bool UpdateUserIsAdmin(int userId, bool isAdmin)
+        {
+            bool result = false;
+            try
+            {
+                result = 0 != userAccessor.UpdateUserIsAdmin(userId, isAdmin);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
             return result;
         }
 

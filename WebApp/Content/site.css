@@ -1,0 +1,116 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding: 0px;
+    width: 100%;
+    height: 100vh;
+}
+.pad{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+#serverList {
+    background: #C5C3C6;
+    height: 90vh;
+    padding: 3px;
+    border: 6px ridge #46494C;
+    border-radius: 10px;
+    margin: 5px;
+}
+#messageContainer {
+    margin: 0px;
+    padding: 0px;
+    height: 90vh;
+    border: 6px ridge #46494C;
+    border-radius: 10px;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    background: #C5C3C6;
+}
+#messagesList {
+    overflow-y: auto;
+    height: inherit;
+    width: 100%;
+    background: inherit;   
+    flex: 99;
+
+}
+.message {
+    background: #DCDCDD;
+    border: 2px solid #4C5C68;
+    padding: 3px;
+    margin: 3px;
+}
+.MessageUserName{
+    font-weight: bold;
+    font-size: 16px;
+}
+.webappBody {
+    background: #1985A1;
+    width: 100%;
+    height: 100vh;
+}
+.serverItem {
+    width: 100%;
+    background: #DCDCDD;
+    border: 2px solid #4C5C68;
+    position: relative;
+}
+.serverImage {
+    max-width: 100%;
+    object-fit: scale-down;
+}
+.serverName {
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-shadow: -2px 1px black;
+    font-size: 20px;
+}
+.chatroomItem {
+    width: 100%;
+    padding: 0px;
+    background: #DCDCDD;
+    border: 2px solid #4C5C68;
+}
+#inputMessageTextContainer {
+    width: 100%;
+    padding: 0px 5px 5px 5px;
+    background: inherit;
+    flex: 1;
+}
+.inputMessageText {
+    max-width: 100%;
+    border: 2px solid #46494C;
+}
+#chatroomList {
+    height: 100%;
+    padding: 3px;
+    height: 90vh;
+    background: #C5C3C6;
+    border: 6px ridge #46494C;
+    border-radius: 10px;
+    margin: 5px;
+}

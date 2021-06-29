@@ -11,6 +11,38 @@ namespace DataAccessLayer
 {
     public class ChatroomAccessor : IChatroomAccessor
     {
+        public int DeleteChatroomByID(int chatroomId)
+        {
+            int result = 0;
+
+            // we need a connection object
+            var conn = DBConnection.GetDBConnection();
+
+            // next, we need a command object
+            var cmd = new SqlCommand("sp_delete_chatroom_by_id", conn);
+
+            // set the command type
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            // set up the command parameters
+            cmd.Parameters.AddWithValue("@ChatroomID", chatroomId);
+            try
+            {
+                conn.Open();
+                result = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return result;
+        }
+
         public int InsertChatroom(int serverId, string name)
         {
             int result = 0;

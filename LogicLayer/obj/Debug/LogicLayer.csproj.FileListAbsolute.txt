@@ -1,11 +1,11 @@
-E:\SCHOOL WORK\.NetTwo\Disclone\LogicLayer\obj\Debug\LogicLayer.csprojAssemblyReference.cache
-E:\SCHOOL WORK\.NetTwo\Disclone\LogicLayer\obj\Debug\LogicLayer.csproj.CoreCompileInputs.cache
 E:\SCHOOL WORK\.NetTwo\Disclone\LogicLayer\bin\Debug\LogicLayer.dll
 E:\SCHOOL WORK\.NetTwo\Disclone\LogicLayer\bin\Debug\LogicLayer.pdb
 E:\SCHOOL WORK\.NetTwo\Disclone\LogicLayer\bin\Debug\DataAccessLayer.dll
 E:\SCHOOL WORK\.NetTwo\Disclone\LogicLayer\bin\Debug\DataObjects.dll
 E:\SCHOOL WORK\.NetTwo\Disclone\LogicLayer\bin\Debug\DataAccessLayer.pdb
 E:\SCHOOL WORK\.NetTwo\Disclone\LogicLayer\bin\Debug\DataObjects.pdb
+E:\SCHOOL WORK\.NetTwo\Disclone\LogicLayer\obj\Debug\LogicLayer.csprojAssemblyReference.cache
+E:\SCHOOL WORK\.NetTwo\Disclone\LogicLayer\obj\Debug\LogicLayer.csproj.CoreCompileInputs.cache
 E:\SCHOOL WORK\.NetTwo\Disclone\LogicLayer\obj\Debug\LogicLayer.csproj.CopyComplete
 E:\SCHOOL WORK\.NetTwo\Disclone\LogicLayer\obj\Debug\LogicLayer.dll
 E:\SCHOOL WORK\.NetTwo\Disclone\LogicLayer\obj\Debug\LogicLayer.pdb

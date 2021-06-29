@@ -17,5 +17,8 @@ namespace DataAccessLayer
         int AddUserToServerWithTag(int userId, string tag);
         int UpdateUserImage(int userID, byte[] userImage);
         List<UserVM> SelectUsersByServerID(int serverId);
+        int RemoveUserFromServerUserList(int userId, int serverId);
+        List<UserVM> SelectAllUsers();
+        int UpdateUserIsAdmin(int userId, bool isAdmin);
     }
 }

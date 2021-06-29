@@ -1,0 +1,29 @@
+﻿@model IEnumerable<DataObjects.ServerVM>
+
+
+
+    @foreach (var item in Model)
+    {
+        string imgSrc;
+        if(item.ServerImage != null){
+            var base64 = Convert.ToBase64String(item.ServerImage);
+            imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+        }
+        else
+        {
+            imgSrc = "images/banana.jpeg";
+        }
+
+<div class="serverItem">
+   
+    <a href="@Url.Action("Details", "Server", new { id = item.ServerID })" title="Server Image">
+        <img alt="Server Image" src="@imgSrc" class="serverImage" />
+        <p class="serverName">@item.Name</p>
+    </a>
+    @*@Html.ActionLink(item.Name, "Details", new { id = item.ServerID }, new { })*@
+</div>
+
+
+    }
+
+

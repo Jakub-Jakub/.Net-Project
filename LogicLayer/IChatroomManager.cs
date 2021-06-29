@@ -11,5 +11,6 @@ namespace LogicLayer
     {
         List<Chatroom> GetServerChatrooms(int serverid);
         bool AddChatroom(int serverId, string name);
+        bool RemoveChatroomById(int chatroomId);
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Media;
+using System.Web;
 
 namespace DataObjects
 {
@@ -26,6 +27,7 @@ namespace DataObjects
     }
     public class ServerVM : Server
     {
+        public HttpPostedFile ImageFile { get; set; }
         public ImageSource ServerImageSource { get; set; }
         public string OwnerUserName { get; set; }
     }

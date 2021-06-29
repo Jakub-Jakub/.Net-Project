@@ -11,5 +11,6 @@ namespace DataAccessLayer
     {
         List<Chatroom> SelectChatroomsByServerID(int serverid);
         int InsertChatroom(int serverId, string name);
+        int DeleteChatroomByID(int chatroomId);
     }
 }

@@ -22,5 +22,6 @@ namespace DataObjects
         public byte[] UserImage { get; set; }
         public string UserName { get; set; }
         public ImageSource UserImageSource { get; set; }
+        public int ChatroomId { get; set; }
     }
 }
